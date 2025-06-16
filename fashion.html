@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fashion - Zepto Clone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f2f8ff;
+    }
+
+    header {
+      background-color: #0047ab;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #e6f0ff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: #0047ab;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #002e6d;
+    }
+
+    .container {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #0047ab;
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Fashion</h1>
+  </header>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="fruits.html">Fruits</a>
+    <a href="vegetables.html">Vegetables</a>
+    <a href="beauty.html">Beauty</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <img src="assets/tshirt 1.jpeg" alt="T-Shirt">
+      <h3>T-Shirt</h3>
+      <p>₹499</p>
+    </div>
+    <div class="card">
+      <img src="assets/jeans.jpeg" alt="Jeans">
+      <h3>Jeans</h3>
+      <p>₹999</p>
+    </div>
+    <div class="card">
+      <img src="assets/sneakers.jpeg" alt="Sneakers">
+      <h3>Sneakers</h3>
+      <p>₹1499</p>
+    </div>
+    <div class="card">
+      <img src="assets/Jacket.jpeg" alt="Jacket">
+      <h3>Jacket</h3>
+      <p>₹1799</p>
+    </div>
+  </div>
+
+</body>
+</html>

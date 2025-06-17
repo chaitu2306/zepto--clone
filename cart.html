@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cart - Zepto Clone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f8ff;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: #0047ab;
+    }
+
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #0047ab;
+      color: white;
+    }
+
+    .quantity-btn {
+      padding: 5px 10px;
+      background-color: #0047ab;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 0 5px;
+    }
+
+    .remove-btn {
+      background-color: #e60000;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+      padding: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Cart</h1>
+  <div class="cart-container">
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price (₹)</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body">
+        <!-- Items will be inserted here -->
+      </tbody>
+    </table>
+    <div id="total-price" class="total"></div>
+    <div id="empty-cart" class="empty-message" style="display: none;">Your cart is empty.</div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const cartBody = document.getElementById("cart-body");
+    const totalDiv = document.getElementById("total-price");
+    const emptyMessage = document.getElementById("empty-cart");
+
+    function updateCartUI() {
+      cartBody.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        emptyMessage.style.display = "block";
+        totalDiv.textContent = "";
+        return;
+      }
+
+      emptyMessage.style.display = "none";
+
+      cart.forEach((item, index) => {
+        const row = document.createElement("tr");
+
+        const totalPrice = item.price * item.quantity;
+        total += totalPrice;
+
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>₹${item.price}</td>
+          <td>
+            <button class="quantity-btn" onclick="changeQty(${index}, -1)">-</button>
+            ${item.quantity}
+            <button class="quantity-btn" onclick="changeQty(${index}, 1)">+</button>
+          </td>
+          <td>₹${totalPrice}</td>
+          <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+        `;
+
+        cartBody.appendChild(row);
+      });
+
+      totalDiv.textContent = `Total: ₹${total}`;
+    }
+
+    function changeQty(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      saveAndUpdate();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      saveAndUpdate();
+    }
+
+    function saveAndUpdate() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    updateCartUI();
+  </script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fresh Fruits - Zepto Clone</title>
+  <title>Fresh Fruits</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,40 +70,95 @@
 </head>
 <body>
 
+  <!-- Header section -->
   <header>
     <h1>Fresh Fruits</h1>
   </header>
 
+  <!-- Navigation Bar -->
   <nav>
-    <a href="home.html">Home</a>
+    <a href="index.html">Home</a>
     <a href="vegetables.html">Vegetables</a>
     <a href="beauty.html">Beauty</a>
     <a href="fashion.html">Fashion</a>
     <a href="contact.html">Contact Us</a>
+    <a href="cart.html">Cart</a>
   </nav>
-
-  <div class="container">
-    <div class="card">
-      <img src="assets/Apple.jpeg" alt="Apple">
-      <h3>Apple</h3>
-      <p>₹120/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/Banana.jpeg" alt="Banana">
-      <h3>Banana</h3>
-      <p>₹40/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/Mango.jpeg" alt="Mango">
-      <h3>Mango</h3>
-      <p>₹90/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/Orange.jpeg" alt="Orange">
-      <h3>Orange</h3>
-      <p>₹70/kg</p>
-    </div>
+<!-- Product cards -->
+<div class="container">
+  <div class="card">
+    <img src="assets/Apple.jpeg" alt="Apple">
+    <h3>Apple</h3>
+    <p>₹120/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
+  <div class="card">
+    <img src="assets/Banana.jpeg" alt="Banana">
+    <h3>Banana</h3>
+    <p>₹40/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Mango.jpeg" alt="Mango">
+    <h3>Mango</h3>
+    <p>₹90/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Orange.jpeg" alt="Orange">
+    <h3>Orange</h3>
+    <p>₹70/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <!-- New Products -->
+  <div class="card">
+    <img src="assets/Grapes.jpeg" alt="Grapes">
+    <h3>Grapes</h3>
+    <p>₹85/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Watermelon.jpeg" alt="Watermelon">
+    <h3>Watermelon</h3>
+    <p>₹30/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Papaya.jpeg" alt="Papaya">
+    <h3>Papaya</h3>
+    <p>₹50/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/pine apple.jpeg" alt="Pineapple">
+    <h3>Pineapple</h3>
+    <p>₹60/pc</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</div>
+<script>
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
-</body>
-</html>
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('p').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} added to cart`);
+    });
+  });
+</script>
+

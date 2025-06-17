@@ -82,28 +82,84 @@
     <a href="contact.html">Contact Us</a>
   </nav>
 
-  <div class="container">
-    <div class="card">
-      <img src="assets/tshirt 1.jpeg" alt="T-Shirt">
-      <h3>T-Shirt</h3>
-      <p>₹499</p>
-    </div>
-    <div class="card">
-      <img src="assets/jeans.jpeg" alt="Jeans">
-      <h3>Jeans</h3>
-      <p>₹999</p>
-    </div>
-    <div class="card">
-      <img src="assets/sneakers.jpeg" alt="Sneakers">
-      <h3>Sneakers</h3>
-      <p>₹1499</p>
-    </div>
-    <div class="card">
-      <img src="assets/Jacket.jpeg" alt="Jacket">
-      <h3>Jacket</h3>
-      <p>₹1799</p>
-    </div>
+ <div class="container">
+  <!-- Existing Items -->
+  <div class="card">
+    <img src="assets/tshirt 1.jpeg" alt="T-Shirt">
+    <h3>T-Shirt</h3>
+    <p>₹499</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/jeans.jpeg" alt="Jeans">
+    <h3>Jeans</h3>
+    <p>₹999</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/sneakers.jpeg" alt="Sneakers">
+    <h3>Sneakers</h3>
+    <p>₹1499</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Jacket.jpeg" alt="Jacket">
+    <h3>Jacket</h3>
+    <p>₹1799</p>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
 
-</body>
-</html>
+  <!-- New Items -->
+  <div class="card">
+    <img src="assets/hoodie.jpeg" alt="Hoodie">
+    <h3>Hoodie</h3>
+    <p>₹899</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/cap.jpeg" alt="Cap">
+    <h3>Cap</h3>
+    <p>₹199</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Back pack.jpeg" alt="Backpack">
+    <h3>Backpack</h3>
+    <p>₹1199</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/shirt.jpeg" alt="Shirt">
+    <h3>Shirt</h3>
+    <p>₹799</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</div>
+<script>
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('p').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} added to cart`);
+    });
+  });
+</script>
+
+
+  

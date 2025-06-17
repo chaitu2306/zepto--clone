@@ -82,28 +82,80 @@
     <a href="contact.html">Contact Us</a>
   </nav>
 
-  <div class="container">
-    <div class="card">
-      <img src="assets/tomato 1.jpeg" alt="Tomato">
-      <h3>Tomato</h3>
-      <p>₹30/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/Potato.jpeg" alt="Potato">
-      <h3>Potato</h3>
-      <p>₹25/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/carrot.jpeg" alt="Carrot">
-      <h3>Carrot</h3>
-      <p>₹45/kg</p>
-    </div>
-    <div class="card">
-      <img src="assets/spinach.jpeg" alt="Spinach">
-      <h3>Spinach</h3>
-      <p>₹20/bunch</p>
-    </div>
+ <div class="container">
+  <div class="card">
+    <img src="assets/tomato 1.jpeg" alt="Tomato">
+    <h3>Tomato</h3>
+    <p>₹30/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Potato.jpeg" alt="Potato">
+    <h3>Potato</h3>
+    <p>₹25/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/carrot.jpeg" alt="Carrot">
+    <h3>Carrot</h3>
+    <p>₹45/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/spinach.jpeg" alt="Spinach">
+    <h3>Spinach</h3>
+    <p>₹20/bunch</p>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
 
-</body>
-</html>
+  <!-- More vegetables -->
+  <div class="card">
+    <img src="assets/onion.jpeg" alt="Onion">
+    <h3>Onion</h3>
+    <p>₹35/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/beetroot.jpeg" alt="Beetroot">
+    <h3>Beetroot</h3>
+    <p>₹40/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/cabbage.jpeg" alt="Cabbage">
+    <h3>Cabbage</h3>
+    <p>₹28/pc</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Brinjal.jpeg" alt="Brinjal">
+    <h3>Brinjal</h3>
+    <p>₹38/kg</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</div>
+<script>
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('p').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} added to cart`);
+    });
+  });
+</script>

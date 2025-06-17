@@ -82,28 +82,80 @@
     <a href="contact.html">Contact Us</a>
   </nav>
 
-  <div class="container">
-    <div class="card">
-      <img src="assets/Face Wash.jpeg" alt="Face Wash">
-      <h3>Face Wash</h3>
-      <p>₹150</p>
-    </div>
-    <div class="card">
-      <img src="assets/Shampoo.jpeg"Shampoo">
-      <h3>Shampoo</h3>
-      <p>₹250</p>
-    </div>
-    <div class="card">
-      <img src="assets/Moisturizer.jpeg" alt="Moisturizer">
-      <h3>Moisturizer</h3>
-      <p>₹200</p>
-    </div>
-    <div class="card">
-      <img src="assets/Sunscreen.jpeg" alt="Sunscreen">
-      <h3>Sunscreen</h3>
-      <p>₹180</p>
-    </div>
+<div class="container">
+  <div class="card">
+    <img src="assets/Face Wash.jpeg" alt="Face Wash">
+    <h3>Face Wash</h3>
+    <p>₹150</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Shampoo.jpeg" alt="Shampoo">
+    <h3>Shampoo</h3>
+    <p>₹250</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Moisturizer.jpeg" alt="Moisturizer">
+    <h3>Moisturizer</h3>
+    <p>₹200</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Sunscreen.jpeg" alt="Sunscreen">
+    <h3>Sunscreen</h3>
+    <p>₹180</p>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
 
-</body>
-</html>
+  <!-- More Beauty Products -->
+  <div class="card">
+    <img src="assets/lipbatm.jpeg" alt="Lip Balm">
+    <h3>Lip Balm</h3>
+    <p>₹90</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/boby lotion.jpeg" alt="Body Lotion">
+    <h3>Body Lotion</h3>
+    <p>₹220</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/conditioner.jpeg" alt="Conditioner">
+    <h3>Conditioner</h3>
+    <p>₹210</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="assets/Face cream.jpeg" alt="Face Cream">
+    <h3>Face Cream</h3>
+    <p>₹240</p>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
+</div>
+<script>
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.card');
+      const name = card.querySelector('h3').textContent;
+      const priceText = card.querySelector('p').textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${name} added to cart`);
+    });
+  });
+</script>

@@ -97,7 +97,7 @@
 
   <div class="container">
     <h2>Get in Touch</h2>
-    <form>
+    <form id="contactForm">
       <label for="name">Your Name</label>
       <input type="text" id="name" name="name" required>
 
@@ -109,6 +109,35 @@
 
       <button type="submit">Submit</button>
     </form>
+    <script>
+  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    try {
+      const res = await fetch("/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Message sent successfully!");
+        document.getElementById("contactForm").reset();
+      } else {
+        alert(data.message || "Failed to send message.");
+      }
+    } catch (err) {
+      alert("Error sending message.");
+      console.error(err);
+    }
+  });
+</script>
   </div>
 
 </body>
